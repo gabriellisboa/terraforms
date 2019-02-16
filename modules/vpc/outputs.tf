@@ -1,8 +1,8 @@
-output "vpc_arn" {
+output "arn" {
   value = "${aws_vpc.main.arn}"
 }
 
-output "vpc_id" {
+output "id" {
   value = "${aws_vpc.main.id}"
 }
 

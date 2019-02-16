@@ -1,3 +1,3 @@
-output "eip_id" {
+output "id" {
   value = "${aws_eip.main.id}"
 }

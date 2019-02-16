@@ -1,6 +1,5 @@
 variable "vpc_id" {
   description = "The id of the vpc you want to create the subnet in"
-  default     = "vpc-033114f0e60b33df6"
 }
 
 variable "route_cidr_block" {
