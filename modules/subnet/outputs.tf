@@ -1,7 +1,7 @@
-output "subnet_arn" {
+output "arn" {
   value = "${aws_subnet.main.arn}"
 }
 
-output "subnet_id" {
+output "id" {
   value = "${aws_subnet.main.id}"
 }

@@ -1,4 +1,4 @@
-output "nat_gateway_id" {
+output "id" {
   value = "${aws_nat_gateway.main.id}"
 }
 
