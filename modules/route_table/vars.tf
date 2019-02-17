@@ -4,15 +4,22 @@ variable "vpc_id" {
 
 variable "route_cidr_block" {
   description = "The destination cidr on your route table"
-  default     = "0.0.0.0/0"
 }
 
 variable "gateway_id" {
   description = "The id of the internet_gateway you want to send traffic to"
-  default     = "igw-0058fb6c5ee3cbd6b"
+  default = ""
+}
+
+variable "nat_gateway_id" {
+  description = "The id of the nat_gateway you want to send traffic to"
+  default = ""
 }
 
 variable "name" {
   description = "String to be used as tag 'Name' of the internet gateway"
-  default     = "gabiroto-out"
+}
+
+variable "route_destiny" {
+  description = "Defines what kind of output your route will point to. NAT or IG"
 }
