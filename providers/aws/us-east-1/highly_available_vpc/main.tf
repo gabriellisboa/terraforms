@@ -1,5 +1,6 @@
 provider "aws" {
-  region = "${module.environment.aws_region}"
+  version = "~> 2.68"
+  region  = module.environment.aws_region
 }
 
 //The key is like this because we alter with SED in the Jenkins Pipeline
