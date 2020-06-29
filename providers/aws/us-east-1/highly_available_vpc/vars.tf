@@ -7,7 +7,7 @@ variable "vpc_name" {
 }
 
 variable "public_subnet_1_cidr_block" {
-  default = "10.69.3.0/24"
+  default = "10.69.4.0/24"
 }
 
 variable "private_subnet_1_cidr_block" {
@@ -19,7 +19,7 @@ variable "availability_zone_1" {
 }
 
 variable "public_subnet_2_cidr_block" {
-  default = "10.69.4.0/24"
+  default = "10.69.5.0/24"
 }
 
 variable "private_subnet_2_cidr_block" {
@@ -28,6 +28,18 @@ variable "private_subnet_2_cidr_block" {
 
 variable "availability_zone_2" {
   default = "us-east-1b"
+}
+
+variable "public_subnet_3_cidr_block" {
+  default = "10.69.6.0/24"
+}
+
+variable "private_subnet_3_cidr_block" {
+  default = "10.69.3.0/24"
+}
+
+variable "availability_zone_3" {
+  default = "us-east-1c"
 }
 
 variable "igw_name" {
