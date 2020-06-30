@@ -8,12 +8,12 @@ variable "route_cidr_block" {
 
 variable "gateway_id" {
   description = "The id of the internet_gateway you want to send traffic to"
-  default = ""
+  default     = ""
 }
 
 variable "nat_gateway_id" {
   description = "The id of the nat_gateway you want to send traffic to"
-  default = ""
+  default     = ""
 }
 
 variable "name" {

@@ -32,12 +32,12 @@ module "sg_rules_https" {
 
 
 module "application_loadbalancer" {
-  source           = "../../../../modules/alb/aws_lb"
-  name             = var.elb_name
-  security_groups  = [module.lb_security_group.id]
-  subnets          = var.subnets
-  internal         = var.internal
-  idle_timeout     = var.elb_idle_timeout
+  source          = "../../../../modules/alb/aws_lb"
+  name            = var.elb_name
+  security_groups = [module.lb_security_group.id]
+  subnets         = var.subnets
+  internal        = var.internal
+  idle_timeout    = var.elb_idle_timeout
 
   tags = {
     Name        = var.elb_name
@@ -76,11 +76,11 @@ module "lc_security_group" {
 }
 
 module "lc_sg_rules_http" {
-  source            = "../../../../modules/security_group/create_sg_rule"
-  port              = 80
-  protocol          = "TCP"
-  source_security_group_id       = module.lb_security_group.id
-  security_group_id = module.lc_security_group.id
+  source                   = "../../../../modules/security_group/create_sg_rule"
+  port                     = 80
+  protocol                 = "TCP"
+  source_security_group_id = module.lb_security_group.id
+  security_group_id        = module.lc_security_group.id
 }
 
 module "aws_launch_configuration" {
