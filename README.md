@@ -1,6 +1,4 @@
-<div align="center">
 [![N|Solid](http://gabiroto.ninja/app/images/logo-extra.png)](http://gabiroto.ninja/)
-</div>
 
 ### Just a modular terraform structure for personal use.
 ```sh
