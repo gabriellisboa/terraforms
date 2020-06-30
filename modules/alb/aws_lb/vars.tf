@@ -12,12 +12,7 @@ variable "security_groups" {
   type = list
 }
 
-variable "internal_subnets" {
-  type = list
-  default = []
-}
-
-variable "external_subnets" {
+variable "subnets" {
   type = list
   default = []
 }
