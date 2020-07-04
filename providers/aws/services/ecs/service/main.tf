@@ -20,7 +20,7 @@ module "application_loadbalancer" {
   source           = "../../../../../modules/alb/aws_lb"
   name             = "ecs-${var.app_name}"
   internal         = var.internal
-  security_groups  = var.internal ? var.default_sg : var.public_sg
+  security_groups  = var.internal ? [data.aws_security_group.private.id] : [data.aws_security_group.public.id]
   subnets = var.internal ? [data.aws_subnet.private_subnet_1.id, data.aws_subnet.private_subnet_2.id, data.aws_subnet.private_subnet_3.id] : [data.aws_subnet.public_subnet_1.id, data.aws_subnet.public_subnet_2.id, data.aws_subnet.public_subnet_3.id]
   tags = {
     Name        = var.app_name

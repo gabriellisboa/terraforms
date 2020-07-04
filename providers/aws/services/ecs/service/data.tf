@@ -71,3 +71,11 @@ data "aws_subnet" "public_subnet_3" {
     values = ["10.69.6.0/24_us-east-1c_public"]
   }
 }
+
+data "aws_security_group" "public" {
+  name = "default-cluster-public-lb-sg"
+}
+
+data "aws_security_group" "private" {
+  name = "default-cluster-private-lb-sg"
+}
