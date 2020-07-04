@@ -23,11 +23,11 @@ module "cluster" {
 
 module "ecs-instances-sg" {
   source  = "../../../../../modules/security_group/create_sg"
-  sg_name = var.cluster_name
+  sg_name = "${var.cluster_name}-instances"
   vpc_id  = module.environment.vpc_id
 }
 
-module "sg_rules_https" {
+module "sg_rule_https" {
   source            = "../../../../../modules/security_group/create_sg_rule"
   port              = "443"
   protocol          = "TCP"
@@ -77,4 +77,32 @@ module "create-ecs-asg" {
   subnets_id        = [module.environment.public_subnet_1, module.environment.public_subnet_2, module.environment.public_subnet_3]
   tag_name          = var.cluster_name
   tag_team          = "test-team"
+}
+
+module "public-service-lb-sg" {
+  source  = "../../../../../modules/security_group/create_sg"
+  sg_name = "${var.cluster_name}-public-lb"
+  vpc_id  = module.environment.vpc_id
+}
+
+module "public-service-lb_rule_https" {
+  source            = "../../../../../modules/security_group/create_sg_rule"
+  port              = "443"
+  protocol          = "TCP"
+  ips_sg_list       = ["0.0.0.0/0"]
+  security_group_id = module.public-service-lb-sg.id
+}
+
+module "private-service-lb-sg" {
+  source  = "../../../../../modules/security_group/create_sg"
+  sg_name = "${var.cluster_name}-private-lb"
+  vpc_id  = module.environment.vpc_id
+}
+
+module "private-service-lb_rule_https" {
+  source            = "../../../../../modules/security_group/create_sg_rule"
+  port              = "443"
+  protocol          = "TCP"
+  ips_sg_list       = var.ips_sg_list
+  security_group_id = module.private-service-lb-sg.id
 }
