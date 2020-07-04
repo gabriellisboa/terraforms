@@ -19,64 +19,65 @@ module "environment" {
 
 module "aws_vpc" {
   source     = "../../../../modules/vpc"
-  cidr_block = "${var.vpc_cidr_block}"
-  name       = "${var.vpc_name}"
+  cidr_block = var.vpc_cidr_block
+  name       = var.vpc_name
+  enable_dns_hostnames = var.enable_dns_hostnames
 }
 
 module "internet_gateway" {
   source = "../../../../modules/internet_gateway"
-  vpc_id = "${module.aws_vpc.id}"
-  name   = "${var.igw_name}"
+  vpc_id = module.aws_vpc.id
+  name   = var.igw_name
 }
 
 module "public_subnet_1" {
   source                  = "../../../../modules/subnet"
-  vpc_id                  = "${module.aws_vpc.id}"
-  cidr_block              = "${var.public_subnet_1_cidr_block}"
+  vpc_id                  = module.aws_vpc.id
+  cidr_block              = var.public_subnet_1_cidr_block
   map_public_ip_on_launch = true
-  availability_zone       = "${var.availability_zone_1}"
+  availability_zone       = var.availability_zone_1
   name                    = "${var.public_subnet_1_cidr_block}_${var.availability_zone_1}_public"
 }
 
 module "private_subnet_1" {
   source            = "../../../../modules/subnet"
-  vpc_id            = "${module.aws_vpc.id}"
-  cidr_block        = "${var.private_subnet_1_cidr_block}"
-  availability_zone = "${var.availability_zone_1}"
+  vpc_id            = module.aws_vpc.id
+  cidr_block        = var.private_subnet_1_cidr_block
+  availability_zone = var.availability_zone_1
   name              = "${var.private_subnet_1_cidr_block}_${var.availability_zone_1}_private"
 }
 
 module "public_subnet_2" {
   source                  = "../../../../modules/subnet"
-  vpc_id                  = "${module.aws_vpc.id}"
-  cidr_block              = "${var.public_subnet_2_cidr_block}"
+  vpc_id                  = module.aws_vpc.id
+  cidr_block              = var.public_subnet_2_cidr_block
   map_public_ip_on_launch = true
-  availability_zone       = "${var.availability_zone_2}"
+  availability_zone       = var.availability_zone_2
   name                    = "${var.public_subnet_2_cidr_block}_${var.availability_zone_2}_public"
 }
 
 module "private_subnet_2" {
   source            = "../../../../modules/subnet"
-  vpc_id            = "${module.aws_vpc.id}"
-  cidr_block        = "${var.private_subnet_2_cidr_block}"
-  availability_zone = "${var.availability_zone_2}"
+  vpc_id            = module.aws_vpc.id
+  cidr_block        = var.private_subnet_2_cidr_block
+  availability_zone = var.availability_zone_2
   name              = "${var.private_subnet_2_cidr_block}_${var.availability_zone_2}_private"
 }
 
 module "public_subnet_3" {
   source                  = "../../../../modules/subnet"
-  vpc_id                  = "${module.aws_vpc.id}"
-  cidr_block              = "${var.public_subnet_3_cidr_block}"
+  vpc_id                  = module.aws_vpc.id
+  cidr_block              = var.public_subnet_3_cidr_block
   map_public_ip_on_launch = true
-  availability_zone       = "${var.availability_zone_3}"
+  availability_zone       = var.availability_zone_3
   name                    = "${var.public_subnet_3_cidr_block}_${var.availability_zone_3}_public"
 }
 
 module "private_subnet_3" {
   source            = "../../../../modules/subnet"
-  vpc_id            = "${module.aws_vpc.id}"
-  cidr_block        = "${var.private_subnet_3_cidr_block}"
-  availability_zone = "${var.availability_zone_3}"
+  vpc_id            = module.aws_vpc.id
+  cidr_block        = var.private_subnet_3_cidr_block
+  availability_zone = var.availability_zone_3
   name              = "${var.private_subnet_3_cidr_block}_${var.availability_zone_3}_private"
 }
 
@@ -94,8 +95,8 @@ module "eip_3" {
 
 module "nat_gateway_1" {
   source    = "../../../../modules/nat_gateway"
-  eip_id    = "${module.eip_1.id}"
-  subnet_id = "${module.public_subnet_1.id}"
+  eip_id    = module.eip_1.id
+  subnet_id = module.public_subnet_1.id
   name      = "${var.private_subnet_1_cidr_block}_${var.availability_zone_1}_out"
 }
 
