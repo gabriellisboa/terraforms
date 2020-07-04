@@ -3,11 +3,6 @@ variable "cluster_name" {
   default = "default-cluster"
 }
 
-variable "vpc_id" {
-  type    = string
-  default = "vpc-080e9d284e712b81d"
-}
-
 variable "ips_sg_list" {
   type    = list(string)
   default = ["10.69.0.0/16"]
@@ -36,11 +31,6 @@ variable "min_size" {
 variable "desired_capacity" {
   type    = number
   default = 2
-}
-
-variable "subnets_id" {
-  type    = list(string)
-  default = ["subnet-05f556fc59f2c77e6", "subnet-0298ce9bc7040948d", "subnet-0fc2ad40c7f0c3218"]
 }
 
 variable "assume_role_policy" {

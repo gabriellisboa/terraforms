@@ -11,6 +11,11 @@ terraform {
   }
 }
 
+//Import the constants
+module "environment" {
+  source = "../../"
+}
+
 module "cluster" {
   source = "../../../../../modules/ecs/cluster"
   name   = var.cluster_name
@@ -19,7 +24,7 @@ module "cluster" {
 module "ecs-instances-sg" {
   source  = "../../../../../modules/security_group/create_sg"
   sg_name = var.cluster_name
-  vpc_id  = var.vpc_id
+  vpc_id  = module.environment.vpc_id
 }
 
 module "sg_rules_https" {
@@ -69,7 +74,7 @@ module "create-ecs-asg" {
   health_check_type = "EC2"
   desired_capacity  = var.desired_capacity
   lc_name           = module.create-ecs-lc.lc_name
-  subnets_id        = var.subnets_id
+  subnets_id        = [module.environment.public_subnet_1, module.environment.public_subnet_2, module.environment.public_subnet_3]
   tag_name          = var.cluster_name
   tag_team          = "test-team"
 }
