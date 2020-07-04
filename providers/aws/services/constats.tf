@@ -3,7 +3,7 @@ output "aws_region" {
 }
 
 output "vpc_id" {
-  value = "vpc-0bb5991454a520272"
+  value = "vpc-080e9d284e712b81d"
 }
 
 output "private_subnet_1" {
@@ -28,8 +28,4 @@ output "public_subnet_2" {
 
 output "public_subnet_3" {
   value = "subnet-01f5da532b012bad6"
-}
-
-output "key_name_sp" {
-  value = ""
 }
