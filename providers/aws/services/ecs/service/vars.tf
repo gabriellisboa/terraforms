@@ -47,7 +47,7 @@ variable "default_sg" {
 }
 
 variable "public_sg" {
-  default     = ["sg-08792776ade7e7fdb"]
+  default     = ["sg-02b54df2e1104fc1a"]
   description = "Default SG for ALB"
 }
 

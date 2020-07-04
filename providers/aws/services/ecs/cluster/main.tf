@@ -24,13 +24,13 @@ module "cluster" {
 module "ecs-instances-sg" {
   source  = "../../../../../modules/security_group/create_sg"
   sg_name = "${var.cluster_name}-instances"
-  vpc_id  = module.environment.vpc_id
+  vpc_id  = data.aws_vpc.default.id
 }
 
 module "sg_rule_https" {
   source            = "../../../../../modules/security_group/create_sg_rule"
-  port              = "443"
-  protocol          = "TCP"
+  port              = 0
+  protocol          = "-1"
   ips_sg_list       = var.ips_sg_list
   security_group_id = module.ecs-instances-sg.id
 }
@@ -74,7 +74,7 @@ module "create-ecs-asg" {
   health_check_type = "EC2"
   desired_capacity  = var.desired_capacity
   lc_name           = module.create-ecs-lc.lc_name
-  subnets_id        = [module.environment.public_subnet_1, module.environment.public_subnet_2, module.environment.public_subnet_3]
+  subnets_id        = [data.aws_subnet.private_subnet_1.id, data.aws_subnet.private_subnet_2.id, data.aws_subnet.private_subnet_3.id]
   tag_name          = var.cluster_name
   tag_team          = "test-team"
 }
@@ -82,7 +82,7 @@ module "create-ecs-asg" {
 module "public-service-lb-sg" {
   source  = "../../../../../modules/security_group/create_sg"
   sg_name = "${var.cluster_name}-public-lb"
-  vpc_id  = module.environment.vpc_id
+  vpc_id  = data.aws_vpc.default.id
 }
 
 module "public-service-lb_rule_https" {
@@ -96,7 +96,7 @@ module "public-service-lb_rule_https" {
 module "private-service-lb-sg" {
   source  = "../../../../../modules/security_group/create_sg"
   sg_name = "${var.cluster_name}-private-lb"
-  vpc_id  = module.environment.vpc_id
+  vpc_id  = data.aws_vpc.default.id
 }
 
 module "private-service-lb_rule_https" {
