@@ -5,3 +5,7 @@ output "alb_arn" {
 output "dns_name" {
   value = "${aws_lb.lb.dns_name}"
 }
+
+output "name" {
+  value = "${aws_lb.lb.name}"
+}

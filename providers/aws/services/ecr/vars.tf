@@ -1,5 +1,5 @@
 variable "name" {
-  default = "Default Repository"
+  default = "test-service"
 }
 
 variable "region" {
@@ -8,6 +8,6 @@ variable "region" {
 
 variable "tags" {
   default = {
-    "Name" = "Default Repository"
+    "Name" = "test-service"
   }
 }

@@ -11,19 +11,24 @@ terraform {
   }
 }
 
+//Import the constants
+module "environment" {
+  source = "../../"
+}
+
 module "cluster" {
-  source = "../../../../modules/ecs/cluster"
+  source = "../../../../../modules/ecs/cluster"
   name   = var.cluster_name
 }
 
 module "ecs-instances-sg" {
-  source  = "../../../../modules/security_group/create_sg"
+  source  = "../../../../../modules/security_group/create_sg"
   sg_name = var.cluster_name
-  vpc_id  = var.vpc_id
+  vpc_id  = module.environment.vpc_id
 }
 
 module "sg_rules_https" {
-  source            = "../../../../modules/security_group/create_sg_rule"
+  source            = "../../../../../modules/security_group/create_sg_rule"
   port              = "443"
   protocol          = "TCP"
   ips_sg_list       = var.ips_sg_list
@@ -31,26 +36,26 @@ module "sg_rules_https" {
 }
 
 module "ecs-instance-role" {
-  source             = "../../../../modules/iam/role"
+  source             = "../../../../../modules/iam/role"
   name               = var.cluster_name
   description        = "Role created for EC2 of ECS cluster ${var.cluster_name}"
   assume_role_policy = var.assume_role_policy
 }
 
 module "aws_iam_role_policy_attachment" {
-  source     = "../../../../modules/iam/role_policy_attachment"
+  source     = "../../../../../modules/iam/role_policy_attachment"
   role_name  = module.ecs-instance-role.name
   policy_arn = var.policy_arn
 }
 
 module "instance_profile" {
-  source    = "../../../../modules/iam/instance_profile"
+  source    = "../../../../../modules/iam/instance_profile"
   name      = var.cluster_name
   role_name = module.ecs-instance-role.name
 }
 
 module "create-ecs-lc" {
-  source          = "../../../../modules/launch_config"
+  source          = "../../../../../modules/launch_config"
   lc_name         = var.cluster_name
   ami_id          = data.aws_ami.amazon_linux_ecs.id
   instance_type   = var.instance_type
@@ -61,7 +66,7 @@ module "create-ecs-lc" {
 }
 
 module "create-ecs-asg" {
-  source            = "../../../../modules/asg"
+  source            = "../../../../../modules/asg"
   associate_elb     = "EC2"
   asg_name          = var.cluster_name
   max_size          = var.max_size
@@ -69,7 +74,7 @@ module "create-ecs-asg" {
   health_check_type = "EC2"
   desired_capacity  = var.desired_capacity
   lc_name           = module.create-ecs-lc.lc_name
-  subnets_id        = var.subnets_id
+  subnets_id        = [module.environment.public_subnet_1, module.environment.public_subnet_2, module.environment.public_subnet_3]
   tag_name          = var.cluster_name
   tag_team          = "test-team"
 }
