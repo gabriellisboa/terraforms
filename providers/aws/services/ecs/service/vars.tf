@@ -41,16 +41,6 @@ variable "internal" {
   default = false
 }
 
-variable "default_sg" {
-  default     = ["sg-056eaeacb515bbf1e"]
-  description = "Default SG for ALB"
-}
-
-variable "public_sg" {
-  default     = ["sg-08792776ade7e7fdb"]
-  description = "Default SG for ALB"
-}
-
 #AWS Tags
 variable "app_name" {
   description = "Name of application, and value of tag name"

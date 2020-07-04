@@ -20,8 +20,8 @@ module "application_loadbalancer" {
   source           = "../../../../../modules/alb/aws_lb"
   name             = "ecs-${var.app_name}"
   internal         = var.internal
-  security_groups  = var.internal ? var.default_sg : var.public_sg
-  subnets = var.internal ? [module.environment.private_subnet_1, module.environment.private_subnet_2, module.environment.private_subnet_3] : [module.environment.public_subnet_1, module.environment.public_subnet_2, module.environment.public_subnet_3]
+  security_groups  = var.internal ? [data.aws_security_group.private.id] : [data.aws_security_group.public.id]
+  subnets = var.internal ? [data.aws_subnet.private_subnet_1.id, data.aws_subnet.private_subnet_2.id, data.aws_subnet.private_subnet_3.id] : [data.aws_subnet.public_subnet_1.id, data.aws_subnet.public_subnet_2.id, data.aws_subnet.public_subnet_3.id]
   tags = {
     Name        = var.app_name
     application = var.application
@@ -43,7 +43,7 @@ module "target_group" {
   source  = "../../../../../modules/alb/aws_lb_target_group"
   name    = module.application_loadbalancer.name
   port    = var.target_group_port
-  vpc_id  = data.aws_vpc.vpc.id
+  vpc_id  = data.aws_vpc.default.id
   path    = var.target_group_health_path
   matcher = var.target_group_matcher
 }

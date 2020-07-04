@@ -20,17 +20,17 @@ variable "key_name" {
 
 variable "max_size" {
   type    = number
-  default = 2
+  default = 3
 }
 
 variable "min_size" {
   type    = number
-  default = 2
+  default = 3
 }
 
 variable "desired_capacity" {
   type    = number
-  default = 2
+  default = 3
 }
 
 variable "assume_role_policy" {
