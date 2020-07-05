@@ -17,8 +17,12 @@ variable "cluster_name" {
   default = "default-cluster"
 }
 
-variable "zone_name" {
+variable "public_zone_name" {
   default = "gabiroto.ninja."
+}
+
+variable "private_zone_name" {
+  default = "internal.gabiroto.ninja."
 }
 
 variable "predefined_metric_type" {

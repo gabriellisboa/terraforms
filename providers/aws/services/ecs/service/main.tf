@@ -31,12 +31,14 @@ module "application_loadbalancer" {
   }
 }
 
-module "loadbalancer_lister_rule_https" {
+module "loadbalancer_listener_rule" {
   source            = "../../../../../modules/alb/aws_lb_listener"
-  ssl_certificate   = true
+  ssl_certificate   = var.internal
   load_balancer_arn = module.application_loadbalancer.alb_arn
-  certificate_arn   = data.aws_acm_certificate.aws.arn
+  certificate_arn   = var.internal ? "" : data.aws_acm_certificate.aws.arn
   target_group_arn  = module.target_group.alb_tg_arn
+  port = var.internal ? "8080" : "443"
+  protocol          = var.internal ? "HTTP" : "HTTPS"
 }
 
 module "target_group" {

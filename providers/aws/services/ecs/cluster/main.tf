@@ -99,9 +99,9 @@ module "private-service-lb-sg" {
   vpc_id  = data.aws_vpc.default.id
 }
 
-module "private-service-lb_rule_https" {
+module "private-service-lb_rule_http" {
   source            = "../../../../../modules/security_group/create_sg_rule"
-  port              = "443"
+  port              = "8080"
   protocol          = "TCP"
   ips_sg_list       = var.ips_sg_list
   security_group_id = module.private-service-lb-sg.id
