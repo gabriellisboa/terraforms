@@ -1,9 +1,7 @@
-//TODO: Change the region with sed on the pipeline
 provider "aws" {
   region = "us-east-1"
 }
 
-//The key is like this because we alter with SED in the Jenkins Pipeline
 terraform {
   backend "s3" {
     region  = "us-east-1"
