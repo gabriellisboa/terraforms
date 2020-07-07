@@ -6,7 +6,7 @@ terraform {
   backend "s3" {
     region  = "us-east-1"
     bucket  = "terraforms-gabiroto"
-    key     = "tf-states/asg-app.tfstate"
+    key     = "tf-states/ecs-service.tfstate"
     encrypt = true
   }
 }
