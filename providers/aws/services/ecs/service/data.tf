@@ -16,7 +16,7 @@ data "aws_ecs_cluster" "ecs" {
 }
 
 data "aws_route53_zone" "selected" {
-  name         = "${var.zone_name}"
+  name         = "${var.internal ? var.private_zone_name : var.public_zone_name}"
   private_zone = "${var.internal}"
 }
 
